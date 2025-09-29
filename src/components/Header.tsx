@@ -28,8 +28,8 @@ export default function Header() {
             </Link>
           </div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex md:items-center md:space-x-6">
+          {/* Desktop Navigation - Centered */}
+          <div className="hidden md:flex md:items-center md:space-x-6 absolute left-1/2 transform -translate-x-1/2">
             {navigation.map((item) => (
               <Link
                 key={item.name}
@@ -43,6 +43,10 @@ export default function Header() {
                 {item.name}
               </Link>
             ))}
+          </div>
+
+          {/* Get a Quote Button - Right */}
+          <div className="hidden md:block">
             <Link to="/contact">
               <Button className="bg-accent hover:bg-accent/90 text-white" size="sm">
                 Get a Quote
