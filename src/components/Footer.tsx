@@ -42,11 +42,6 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/careers" className="text-sm text-muted-foreground hover:text-accent transition-colors">
-                    Careers
-                  </Link>
-                </li>
-                <li>
                   <a href="#" className="text-sm text-muted-foreground hover:text-accent transition-colors">
                     Sitemap
                   </a>
