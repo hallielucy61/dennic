@@ -20,11 +20,11 @@ export default function Team() {
   return (
     <div className="flex flex-col min-h-screen pt-16">
       {/* Hero Section */}
-      <section className="py-20 gradient-hero text-primary-foreground">
+      <section className="py-20 bg-background">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto text-center space-y-6">
-            <h1>Our Team</h1>
-            <p className="text-xl text-primary-foreground/90">
+          <div className="max-w-3xl mx-auto text-center space-y-4">
+            <h1 className="text-foreground">Our Team</h1>
+            <p className="text-lg text-muted-foreground">
               Meet the experts driving innovation and excellence
             </p>
           </div>

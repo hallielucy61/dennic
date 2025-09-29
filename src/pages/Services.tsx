@@ -20,12 +20,14 @@ export default function Services() {
   return (
     <div className="flex flex-col min-h-screen pt-16">
       {/* Hero Section */}
-      <section className="py-20 gradient-hero text-primary-foreground">
+      <section className="py-20 bg-background">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto text-center space-y-6">
-            <h1>Our Services</h1>
-            <p className="text-xl text-primary-foreground/90">
-              Comprehensive engineering solutions tailored to your unique challenges
+          <div className="max-w-4xl mx-auto text-center space-y-4">
+            <h1 className="text-foreground">Dennic's Electrical Engineering Services</h1>
+            <p className="text-lg text-muted-foreground">
+              At Dennic, we provide a comprehensive suite of specialized electrical engineering
+              services. Our expert team is dedicated to delivering innovative, reliable, and safe
+              solutions tailored to the unique challenges of your projects.
             </p>
           </div>
         </div>
@@ -39,18 +41,23 @@ export default function Services() {
               <Loader2 className="h-12 w-12 animate-spin text-accent" />
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
               {services?.map((service) => (
                 <Card
                   key={service.id}
-                  className="hover:shadow-elevated transition-all group"
+                  className="hover:shadow-card transition-all"
                 >
-                  <CardContent className="pt-6">
-                    <div className="h-16 w-16 rounded-lg bg-accent/10 flex items-center justify-center mb-6 group-hover:bg-accent/20 transition-colors">
-                      <div className="h-8 w-8 bg-accent rounded" />
+                  <CardContent className="pt-8 pb-8">
+                    <div className="h-14 w-14 rounded-lg bg-accent/10 flex items-center justify-center mb-6">
+                      <div className="h-8 w-8 text-accent">
+                        {/* Icon placeholder */}
+                        <svg className="w-full h-full" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M10 2a8 8 0 100 16 8 8 0 000-16zM9 13V7h2v6H9zm0 2v2h2v-2H9z"/>
+                        </svg>
+                      </div>
                     </div>
-                    <h3 className="text-2xl font-bold mb-4">{service.name}</h3>
-                    <p className="text-muted-foreground text-lg">
+                    <h3 className="text-xl font-bold mb-3">{service.name}</h3>
+                    <p className="text-muted-foreground">
                       {service.description}
                     </p>
                   </CardContent>

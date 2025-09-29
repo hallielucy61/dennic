@@ -43,21 +43,9 @@ export default function ProjectDetail() {
 
   return (
     <div className="flex flex-col min-h-screen pt-16">
-      {/* Hero Section */}
-      <section className="relative h-[60vh] bg-gradient-accent">
-        {project.cover_image_path && (
-          <img
-            src={project.cover_image_path}
-            alt={project.title}
-            className="w-full h-full object-cover"
-          />
-        )}
-        <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent" />
-      </section>
-
       {/* Content */}
-      <section className="py-12 -mt-32 relative z-10">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-12 pt-24">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
           <Link to="/projects">
             <Button variant="ghost" className="mb-6">
               <ArrowLeft className="mr-2 h-4 w-4" />
@@ -65,76 +53,101 @@ export default function ProjectDetail() {
             </Button>
           </Link>
 
-          <div className="bg-card rounded-lg shadow-elevated p-8 md:p-12">
-            <h1 className="mb-6">{project.title}</h1>
-            
-            <div className="flex flex-wrap gap-6 mb-8 text-muted-foreground">
-              {project.client && (
-                <div className="flex items-center gap-2">
-                  <User className="h-5 w-5" />
-                  <span>Client: {project.client}</span>
-                </div>
-              )}
-              {project.start_date && (
-                <div className="flex items-center gap-2">
-                  <Calendar className="h-5 w-5" />
-                  <span>
-                    {format(new Date(project.start_date), "MMM yyyy")}
-                    {project.end_date && ` - ${format(new Date(project.end_date), "MMM yyyy")}`}
-                  </span>
-                </div>
-              )}
+          <div className="space-y-12">
+            <div>
+              <h1 className="mb-4">{project.title}</h1>
+              <p className="text-lg text-muted-foreground">
+                {project.summary || "A detailed look into Dennic's expert electrical engineering solutions for a modern manufacturing facility."}
+              </p>
             </div>
 
-            {project.tags && (
-              <div className="flex flex-wrap gap-2 mb-8">
-                {project.tags.map((tag: string, idx: number) => (
-                  <span
-                    key={idx}
-                    className="px-3 py-1 rounded-full bg-accent/10 text-accent text-sm"
-                  >
-                    {tag}
-                  </span>
-                ))}
+            {/* Hero Image Placeholder */}
+            {project.cover_image_path && (
+              <div className="aspect-video bg-muted rounded-lg overflow-hidden">
+                <img
+                  src={project.cover_image_path}
+                  alt={project.title}
+                  className="w-full h-full object-cover"
+                />
               </div>
             )}
 
-            {project.summary && (
-              <div className="mb-8">
-                <h2 className="text-2xl font-bold mb-4">Overview</h2>
-                <p className="text-lg text-muted-foreground">{project.summary}</p>
-              </div>
-            )}
+            {/* Project Overview */}
+            <div>
+              <h2 className="text-2xl font-bold mb-4 pb-2 border-b-2 border-accent">Project Overview</h2>
+              <p className="text-muted-foreground leading-relaxed">
+                {project.description || "This case study details Dennic's role in the complete electrical system overhaul for a large-scale manufacturing plant. The project demanded innovative electrical engineering solutions to enhance efficiency, ensure robust power distribution, and meet future expansion needs while adhering to the strictest safety protocols."}
+              </p>
+            </div>
 
-            {project.description && (
-              <div className="mb-8">
-                <h2 className="text-2xl font-bold mb-4">Description</h2>
-                <div className="prose prose-lg max-w-none text-muted-foreground">
-                  {project.description}
-                </div>
-              </div>
-            )}
+            {/* Challenges */}
+            <div>
+              <h2 className="text-2xl font-bold mb-4 pb-2 border-b-2 border-accent">Challenges</h2>
+              <p className="text-muted-foreground leading-relaxed">
+                The primary challenges included upgrading a live facility with minimal downtime, integrating new high-demand automated machinery, and ensuring the new system was both scalable and energy-efficient. Dennic's expertise was critical in navigating complex existing infrastructure and developing a phased implementation plan to avoid production disruptions.
+              </p>
+            </div>
 
-            {/* Gallery */}
-            {project.gallery_paths && Array.isArray(project.gallery_paths) && project.gallery_paths.length > 0 && (
+            {/* Solutions */}
+            <div>
+              <h2 className="text-2xl font-bold mb-4 pb-2 border-b-2 border-accent">Solutions by Dennic</h2>
+              <p className="text-muted-foreground leading-relaxed">
+                The Dennic team conducted a comprehensive power system analysis and designed a new, resilient power distribution network. Our solution featured custom switchgear, advanced circuit protection, and a state-of-the-art power monitoring system. We implemented a meticulously planned, phased rollout, allowing sections of the plant to be upgraded during scheduled maintenance windows, ensuring our client's operations remained uninterrupted.
+              </p>
+            </div>
+
+            {/* Results */}
+            <div>
+              <h2 className="text-2xl font-bold mb-4 pb-2 border-b-2 border-accent">Results</h2>
+              <p className="text-muted-foreground leading-relaxed">
+                The project was completed on time and within budget, significantly improving the plant's electrical reliability and capacity. Dennic's expert electrical engineering solution led to a 20% increase in energy efficiency and provided a scalable foundation for the client's future growth. The facility now stands as a testament to modern industrial electrical design, showcasing Dennic's commitment to quality and technical excellence.
+              </p>
+            </div>
+
+            {/* Two Column Section */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {/* Client Testimonial */}
+              <div className="bg-accent/5 border-l-4 border-accent p-6 rounded">
+                <h2 className="text-2xl font-bold mb-4">Client Testimonial</h2>
+                <p className="text-muted-foreground italic mb-4">
+                  "Dennic's deep expertise in electrical engineering was the key to our project's success. Their professionalism and innovative solutions not only met our complex requirements but exceeded our expectations. We couldn't have asked for a better partner."
+                </p>
+                <p className="text-sm font-semibold">
+                  - {project.client || "John Carter"}, Plant Manager, Innovate Manufacturing
+                </p>
+              </div>
+
+              {/* Technical Specifications */}
               <div>
-                <h2 className="text-2xl font-bold mb-4">Project Gallery</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {project.gallery_paths.map((path: string, idx: number) => (
-                    <div
-                      key={idx}
-                      className="aspect-video rounded-lg overflow-hidden bg-muted"
-                    >
-                      <img
-                        src={path}
-                        alt={`${project.title} - Image ${idx + 1}`}
-                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                      />
-                    </div>
-                  ))}
+                <h2 className="text-2xl font-bold mb-4">Technical Specifications</h2>
+                <div className="space-y-3">
+                  <div className="flex justify-between py-2 border-b">
+                    <span className="font-medium">Main Power Supply</span>
+                    <span className="text-muted-foreground">12.47 kV</span>
+                  </div>
+                  <div className="flex justify-between py-2 border-b">
+                    <span className="font-medium">Total Connected Load</span>
+                    <span className="text-muted-foreground">5 MVA</span>
+                  </div>
+                  <div className="flex justify-between py-2 border-b">
+                    <span className="font-medium">Distribution System</span>
+                    <span className="text-muted-foreground">480V/277V, 3-Phase, 4-Wire</span>
+                  </div>
+                  <div className="flex justify-between py-2 border-b">
+                    <span className="font-medium">Key Equipment</span>
+                    <span className="text-muted-foreground">Custom Switchgear, VFDs, PLCs</span>
+                  </div>
+                  <div className="flex justify-between py-2 border-b">
+                    <span className="font-medium">Safety Standards</span>
+                    <span className="text-muted-foreground">NEC, NFPA 70E</span>
+                  </div>
+                  <div className="flex justify-between py-2 border-b">
+                    <span className="font-medium">Energy Efficiency</span>
+                    <span className="text-muted-foreground font-semibold text-accent">20% Improvement</span>
+                  </div>
                 </div>
               </div>
-            )}
+            </div>
           </div>
         </div>
       </section>

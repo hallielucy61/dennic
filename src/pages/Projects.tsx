@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -44,19 +45,20 @@ export default function Projects() {
   return (
     <div className="flex flex-col min-h-screen pt-16">
       {/* Hero Section */}
-      <section className="py-20 gradient-hero text-primary-foreground">
+      <section className="py-20 bg-background">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto text-center space-y-6">
-            <h1>Our Projects</h1>
-            <p className="text-xl text-primary-foreground/90">
-              Explore our portfolio of innovative engineering solutions
+          <div className="max-w-3xl mx-auto text-center space-y-4">
+            <h1 className="text-foreground">Our Projects</h1>
+            <p className="text-lg text-muted-foreground">
+              Explore our portfolio of successful electrical engineering projects, showcasing our
+              commitment to quality, innovation, and client satisfaction.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Filters Section */}
-      <section className="py-8 bg-muted/30 border-b">
+      {/* Filters Section - Hidden by default to match design */}
+      <section className="py-4 bg-muted/30 border-b hidden">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row gap-4">
             <div className="flex-1 relative">
@@ -68,31 +70,6 @@ export default function Projects() {
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="pl-10"
               />
-            </div>
-            <div className="flex flex-wrap gap-2">
-              <button
-                onClick={() => setSelectedTag(null)}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  !selectedTag
-                    ? "bg-accent text-accent-foreground"
-                    : "bg-background border hover:bg-muted"
-                }`}
-              >
-                All
-              </button>
-              {allTags.map((tag) => (
-                <button
-                  key={tag}
-                  onClick={() => setSelectedTag(tag)}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                    selectedTag === tag
-                      ? "bg-accent text-accent-foreground"
-                      : "bg-background border hover:bg-muted"
-                  }`}
-                >
-                  {tag}
-                </button>
-              ))}
             </div>
           </div>
         </div>
@@ -107,41 +84,39 @@ export default function Projects() {
             </div>
           ) : filteredProjects && filteredProjects.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredProjects.map((project) => (
-                <Link key={project.id} to={`/projects/${project.slug}`}>
-                  <Card className="overflow-hidden hover:shadow-elevated transition-all group cursor-pointer h-full">
-                    <div className="aspect-video bg-gradient-accent relative overflow-hidden">
-                      {project.cover_image_path && (
-                        <img
-                          src={project.cover_image_path}
-                          alt={project.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                      )}
-                    </div>
-                    <CardContent className="pt-6">
-                      <h3 className="text-xl font-semibold mb-2 group-hover:text-accent transition-colors">
-                        {project.title}
-                      </h3>
-                      <p className="text-muted-foreground mb-4 line-clamp-2">
-                        {project.summary}
-                      </p>
-                      {project.tags && (
-                        <div className="flex flex-wrap gap-2">
-                          {project.tags.map((tag: string, idx: number) => (
-                            <span
-                              key={idx}
-                              className="text-xs px-2 py-1 rounded-full bg-accent/10 text-accent"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      )}
-                    </CardContent>
-                  </Card>
-                </Link>
-              ))}
+              {filteredProjects.map((project, idx) => {
+                const bgColors = ["project-card-blue", "project-card-gray", "project-card-teal", "project-card-teal", "project-card-gray", "project-card-gray"];
+                const bgClass = bgColors[idx % bgColors.length];
+                
+                return (
+                  <Link key={project.id} to={`/projects/${project.slug}`}>
+                    <Card className="overflow-hidden hover:shadow-elevated transition-all group cursor-pointer h-full">
+                      <div className={`aspect-video ${bgClass} flex items-center justify-center relative overflow-hidden`}>
+                        {project.cover_image_path ? (
+                          <img
+                            src={project.cover_image_path}
+                            alt={project.title}
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <div className="text-white/20 text-sm">Project Image</div>
+                        )}
+                      </div>
+                      <CardContent className="pt-6 pb-6">
+                        <h3 className="text-xl font-bold mb-2">
+                          {project.title}
+                        </h3>
+                        <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
+                          {project.summary}
+                        </p>
+                        <Button variant="link" className="p-0 h-auto text-accent">
+                          View Case Study →
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                );
+              })}
             </div>
           ) : (
             <div className="text-center py-20">

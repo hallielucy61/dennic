@@ -5,11 +5,11 @@ export default function About() {
   return (
     <div className="flex flex-col min-h-screen pt-16">
       {/* Hero Section */}
-      <section className="py-20 gradient-hero text-primary-foreground">
+      <section className="py-20 bg-background">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto text-center space-y-6">
-            <h1>About Dennic Engineering</h1>
-            <p className="text-xl text-primary-foreground/90">
+          <div className="max-w-3xl mx-auto text-center space-y-4">
+            <h1 className="text-foreground">About Dennic Engineering</h1>
+            <p className="text-lg text-muted-foreground">
               Leading the way in innovative engineering solutions since 2010
             </p>
           </div>
@@ -110,7 +110,7 @@ export default function About() {
       </section>
 
       {/* Stats */}
-      <section className="py-20 gradient-hero text-primary-foreground">
+      <section className="py-20 hero-bg text-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
@@ -121,7 +121,7 @@ export default function About() {
             ].map((stat, index) => (
               <div key={index}>
                 <div className="text-5xl font-bold mb-2 text-accent">{stat.value}</div>
-                <div className="text-primary-foreground/80">{stat.label}</div>
+                <div className="text-white/80">{stat.label}</div>
               </div>
             ))}
           </div>

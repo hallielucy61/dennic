@@ -49,8 +49,10 @@ export default function Header() {
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center">
             <Link to="/" className="flex items-center space-x-2">
-              <div className="h-8 w-8 rounded-lg bg-accent" />
-              <span className="font-bold text-xl">Dennic Engineering</span>
+              <div className="h-8 w-8 rounded bg-accent flex items-center justify-center text-white font-bold text-xs">
+                D
+              </div>
+              <span className="font-bold text-xl">Dennic</span>
             </Link>
           </div>
 
@@ -82,9 +84,14 @@ export default function Header() {
                 </Button>
               </>
             )}
+            <Link to="/contact">
+              <Button className="bg-accent hover:bg-accent/90 text-white" size="sm">
+                Get a Quote
+              </Button>
+            </Link>
             {!user && (
               <Link to="/auth">
-                <Button variant="default" size="sm">
+                <Button variant="outline" size="sm">
                   Login
                 </Button>
               </Link>
