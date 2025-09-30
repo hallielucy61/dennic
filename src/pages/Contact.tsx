@@ -47,7 +47,8 @@ export default function Contact() {
     setLoading(true);
 
     try {
-      const { error } = await supabase
+      // Save to database
+      const { error: dbError } = await supabase
         .from("contacts")
         .insert([{
           name: result.data.name,
@@ -56,15 +57,34 @@ export default function Contact() {
           message: result.data.message,
         }]);
 
-      if (error) throw error;
+      if (dbError) throw dbError;
 
-      toast({
-        title: "Message sent!",
-        description: "We'll get back to you as soon as possible.",
+      // Send email notifications
+      const { error: emailError } = await supabase.functions.invoke("send-contact-email", {
+        body: {
+          name: result.data.name,
+          email: result.data.email,
+          company: result.data.company,
+          message: result.data.message,
+        },
       });
+
+      if (emailError) {
+        console.error("Error sending emails:", emailError);
+        toast({
+          title: "Message saved",
+          description: "Your message was saved but email notification failed. We'll still respond soon!",
+        });
+      } else {
+        toast({
+          title: "Message sent!",
+          description: "We'll get back to you as soon as possible.",
+        });
+      }
 
       setFormData({ name: "", email: "", company: "", message: "" });
     } catch (error) {
+      console.error("Error submitting form:", error);
       toast({
         title: "Error",
         description: "Failed to send message. Please try again.",
